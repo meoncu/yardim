@@ -1,0 +1,27 @@
+
+> temp_app@0.1.0 build
+> next build
+
+Ôû▓ Next.js 16.1.6 (Turbopack)
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./src/app/api/auth/session/route.ts:2:1
+Module not found: Can't resolve 'next/response'
+  1 | import { cookies } from 'next/headers';
+> 2 | import { NextRequest, NextResponse } from 'next/response';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  3 | import { adminAuth, adminDb } from '@/lib/firebase-admin/config';
+  4 |
+  5 | export async function POST(req: NextRequest) {
+
+Import map: aliased to module 'next' with subpath '/response' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (./src/app/api/auth/session/route.ts:2:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
