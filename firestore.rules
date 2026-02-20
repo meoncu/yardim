@@ -1,0 +1,29 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Herkesin (Giriş yapmamış kişilerin bile) sadece aktif ilanları okumasına izin ver
+    match /announcements/{announcementId} {
+      allow read: if resource.data.status == 'active';
+      allow write: if false; 
+    }
+    
+    // Dernek bilgileri halka açıktır
+    match /associations/{associationId} {
+      allow read: if true;
+      allow write: if false; 
+    }
+
+    // Admin paneline dair herhangi bir koleksiyon okuma/yazma kapalıdır 
+    // (Admin işlemleri Server Action -> Admin SDK üzerinden atlanarak yapılır)
+    match /admins/{adminId} {
+      allow read, write: if false;
+    }
+
+    // Geri kalan her şey varsayılan olarak kapalıdır
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
